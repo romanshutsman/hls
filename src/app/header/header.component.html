@@ -1,0 +1,21 @@
+<header class="header" [ngClass]="{'header-white': changeHeader(), 'fixed-header': fixHeader()}">
+  <div class="container">
+    <div class="header-logo"><img
+      src="{{!changeHeader() ? '../../assets/img/logo.png':'../../assets/img/logo-black.png'}}" class="logo"
+      routerLink="/"><span class="location"><img
+      src="../../assets/img/icons/location.png">New York</span></div>
+    <div class="header-menu">
+      <nav id="topnav" class="topnav" [ngClass]="{'responsive': responsiveMenu}">
+        <div class="header-menu-wrap">
+          <a class="close-btn" (click)="responsiveMenu = !responsiveMenu">&times;</a>
+          <a routerLink="premium" [ngClass]="{'active-link': this.router.url === '/premium'}">About Premium</a>
+          <a routerLink="for-business" [ngClass]="{'active-link': this.router.url === '/for-business'}">For Business</a>
+          <a *ngIf="!auth" (click)="openAuthDialog()">Log in</a>
+          <a *ngIf="!auth" (click)="openAuthDialog()">Sign up</a>
+          <a *ngIf="auth" (click)="logout()">Log Out</a>
+          <a (click)="openGetAppDialog()" class="btn">get the app</a>
+        </div>
+      </nav>
+      <a class="burger" (click)="responsiveMenu = !responsiveMenu"><i class="fa fa-bars"></i></a></div>
+  </div>
+</header>

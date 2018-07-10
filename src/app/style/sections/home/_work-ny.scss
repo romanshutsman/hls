@@ -1,0 +1,92 @@
+.work-ny {
+  background-color: $color_silver;
+  position: relative;
+  .block-txt {
+    position: absolute;
+    font-size: 10vw;
+    font-weight: 900;
+    color: $color_white;
+    top: 220px;
+    right: 0;
+    letter-spacing: 3.9px;
+  }
+  .section-container {
+    position: relative;
+    z-index: 1;
+  }
+  .section-container > p {
+    margin: 30px 0 60px;
+    font-size: $font_size_simple;
+    font-weight: 300;
+    line-height: 1.88;
+    letter-spacing: 0.3px;
+    color: $color_low_black;
+    a {
+      border-bottom: 1px solid #bcbcbc;
+      color: $color_low_black;
+      font-size: $font_size_simple;
+    }
+  }
+  .cities-container {
+    @include flex-align(space-between, center);
+    .city-item {
+      display: flex;
+      flex-direction: column;
+      img {
+        border-radius: 50%;
+        order: 1;
+        transition: all 200ms;
+      }
+      label {
+        font-size: 18px;
+        font-weight: bold;
+        color: $color_black;
+        text-transform: uppercase;
+        order: 2;
+        .checkmark {
+          margin-right: 15px;
+        }
+        &:hover ~ .img-wrap img {
+          transform: scale(1.1);
+        }
+      }
+      .img-wrap {
+        width: 123px;
+        height: 123px;
+        margin: auto;
+        margin-bottom: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1500px) {
+  .work-ny {
+    .block-txt {
+      top: 256px;
+    }
+  }
+}
+
+@include tablet() {
+  .work-ny {
+    .block-txt {
+      display: none;
+    }
+    .cities-container {
+      flex-wrap: wrap;
+      .city-item {
+        width: 30%;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+
+@include mobile() {
+  .work-ny {
+    display: none;
+  }
+}

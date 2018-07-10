@@ -1,0 +1,72 @@
+<section class="service-description">
+  <div class="service-description-img" [ngStyle]="{'background-image': getImg(data.photos)}"></div>
+  <div class="section-container">
+    <div class="service-description-favorite"><img src="../../assets/img/service-description/mark-favorite.svg"></div>
+    <h2 class="service-description-title">{{data.name}}</h2>
+    <div class="service-description-container">
+      <div class="service-description-left">
+        <p class="service-description-txt">{{data.description | ellipsis: ellipsisNumber : true}}
+          <a class="blog-info-read-more" *ngIf="data.description.length > ellipsisNumber"
+             (click)="ellipsisNumber = data.description.length">Read more
+            <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
+          </a>
+          <a class="blog-info-read-more read-less" *ngIf="data.description.length === ellipsisNumber"
+             (click)="ellipsisNumber = 500"><i aria-hidden="true" class="fa fa-long-arrow-left"></i> Read less
+          </a>
+        </p>
+      </div>
+      <div class="service-description-right">
+        <div class="service-description-location"><img src="../../assets/img/icons/location-thin.svg"><span>{{data.address}}</span>
+        </div>
+        <div class="service-description-website"><img src="../../assets/img/icons/website.svg"><a
+          href="{{data.webSite}}">{{data.webSite}}</a></div>
+        <div class="service-description-schedule"><img src="../../assets/img/icons/clock.svg">
+          <div class="schedule-container">
+            <span class="schedule-property">Monday
+              <span class="schedule-value" *ngIf="data.schedule[0].isOpen">{{data.schedule[0].from}} pm - {{data.schedule[0].to}} pm</span>
+              <span class="schedule-value" *ngIf="!data.schedule[0].isOpen">Closed</span>
+            </span>
+            <span class="schedule-property">Tuesday
+              <span class="schedule-value" *ngIf="data.schedule[1].isOpen">{{data.schedule[1].from}} pm - {{data.schedule[1].to}} pm</span>
+              <span class="schedule-value" *ngIf="!data.schedule[1].isOpen">Closed</span>
+            </span>
+            <span class="schedule-property">Wednesday
+              <span class="schedule-value" *ngIf="data.schedule[2].isOpen">{{data.schedule[2].from}} pm - {{data.schedule[2].to}} pm</span>
+              <span class="schedule-value" *ngIf="!data.schedule[2].isOpen">Closed</span>
+            </span>
+            <span class="schedule-property">Thursday
+              <span class="schedule-value" *ngIf="data.schedule[3].isOpen">{{data.schedule[3].from}} pm - {{data.schedule[3].to}} pm</span>
+              <span class="schedule-value" *ngIf="!data.schedule[3].isOpen">Closed</span>
+            </span>
+            <span class="schedule-property">Friday
+              <span class="schedule-value" *ngIf="data.schedule[4].isOpen">{{data.schedule[4].from}} pm - {{data.schedule[4].to}} pm</span>
+              <span class="schedule-value" *ngIf="!data.schedule[4].isOpen">Closed</span>
+            </span>
+            <span class="schedule-property">Saturday
+              <span class="schedule-value" *ngIf="data.schedule[5].isOpen">{{data.schedule[5].from}} pm - {{data.schedule[5].to}} pm</span>
+              <span class="schedule-value" *ngIf="!data.schedule[5].isOpen">Closed</span>
+            </span>
+            <span class="schedule-property"> Sunday
+              <span class="schedule-value" *ngIf="data.schedule[6].isOpen">{{data.schedule[6].from}} pm - {{data.schedule[6].to}} pm</span>
+              <span class="schedule-value" *ngIf="!data.schedule[6].isOpen">Closed</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <agm-map
+    [latitude]="lat"
+    [longitude]="lng"
+    [zoom]="zoom"
+  >
+    <agm-marker
+      *ngFor="let mark of markers; let i = index"
+      [latitude]="mark.lat"
+      [longitude]="mark.lng"
+      [label]="mark.label"
+      [iconUrl]="mark.img"
+    >
+    </agm-marker>
+  </agm-map>
+</section>

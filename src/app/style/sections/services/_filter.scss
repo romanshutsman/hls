@@ -1,0 +1,116 @@
+.services-filter {
+  position: fixed;
+  top: 68px;
+  width: 100%;
+  background-color: #f7f7f7;
+  padding: 20px 20px;
+  @include flex-align(center, center);
+  .services-filter-title, .services-type-item {
+    font-size: 15px;
+    color: $color_low_black;
+  }
+  .services-type {
+    @include flex-align(center, center);
+    margin-left: 50px;
+    input {
+      display: none;
+    }
+    label {
+      width: 17px;
+      height: 17px;
+      background-color: $color_white;
+      border: solid 1px #c5c5c5;
+      margin-right: 10px;
+      position: relative;
+      &:after {
+        content: "";
+        width: 23px;
+        height: 17px;
+        background-size: cover;
+        position: absolute;
+        bottom: 2px;
+        left: 0px;
+        display: none;
+      }
+    }
+  }
+  .services-type-item {
+    @include flex-align(center, center);
+    &:not(:first-child){
+      margin-left: 30px;
+    }
+  }
+  .services-type-item:nth-child(1) input[type="checkbox"]:checked ~  label {
+    &:after{
+      display: block;
+      background-image: url("../../assets/img/icons/checkbox/red.svg");
+    }
+  }
+  .services-type-item:nth-child(2) input[type="checkbox"]:checked ~  label {
+    &:after{
+      display: block;
+      background-image: url("../../assets/img/icons/checkbox/green.svg");
+    }
+  }
+  .services-type-item:nth-child(3) input[type="checkbox"]:checked ~  label {
+    &:after{
+      display: block;
+      background-image: url("../../assets/img/icons/checkbox/blue.svg");
+    }
+  }
+  .services-type-item:nth-child(4) input[type="checkbox"]:checked ~  label {
+    &:after{
+      display: block;
+      background-image: url("../../assets/img/icons/checkbox/violet.svg");
+    }
+  }
+  .services-type-item:nth-child(5) input[type="checkbox"]:checked ~  label {
+    &:after{
+      display: block;
+      background-image: url("../../assets/img/icons/checkbox/yellow.svg");
+    }
+  }
+  .services-type-item.big-checkbox input[type="checkbox"]:checked ~  label {
+    &:after{
+      background-color: #9cc859;
+      right: 1px;
+      left: auto;
+    }
+  }
+  .services-type-item.big-checkbox {
+    position: absolute;
+    right: 20px;
+    label {
+      width: 58px;
+      height: 36px;
+      border-radius: 17.3px;
+      background-color: #ffffff;
+      border: solid 1px #c5c5c5;
+      margin-left: 20px;
+      margin-right: 0;
+      &:after {
+        display: block;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: silver;
+        bottom: 1px;
+        left: 1px;
+        transition: all 200ms;
+      }
+    }
+  }
+
+}
+
+
+@include md-laptop(){
+  .services-filter {
+  justify-content: flex-start;
+  }
+}
+@include tablet(){
+  .services-filter {
+    display: none;
+  }
+}

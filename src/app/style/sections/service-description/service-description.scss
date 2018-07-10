@@ -1,0 +1,133 @@
+.service-description {
+  max-width: 900px;
+  min-width: 900px;
+  overflow-y: auto;
+  max-height: 90vh;
+  .service-description-img {
+    height: 400px;
+    background-image: url("../../../../assets/img/service-description-bg.png");
+    background-size: cover;
+    background-position: center;
+  }
+  .section-container {
+    width: 100%;
+    position: relative;
+    padding-bottom: 50px;
+  }
+  .service-description-favorite {
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    top: 0;
+    transform: translateY(-50%);
+  }
+  .service-description-title {
+    margin-bottom: 50px;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #505050;
+    text-transform: uppercase;
+  }
+  .service-description-container {
+    display: block;
+  }
+  .service-description-txt {
+    margin-bottom: 40px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.59;
+    letter-spacing: 0.3px;
+    text-align: left;
+    color: #454545;
+  }
+  .service-description-right {
+    & > div {
+      & > img {
+        margin-right: 17px;
+      }
+    }
+  }
+  .service-description-location {
+    @include flex-align(flex-start, center);
+    span {
+      font-size: 17px;
+      color: #696969;
+    }
+  }
+  .service-description-website {
+    @include flex-align(flex-start, center);
+    margin: 35px 0;
+    a {
+      font-size: 17px;
+      font-weight: 300;
+      color: #454545;
+      text-decoration: underline;
+    }
+  }
+  .service-description-schedule {
+    @include flex-align(flex-start, flex-start);
+    img {
+      margin-top: 3px;
+    }
+    span {
+      font-size: 17px;
+      font-weight: normal;
+      line-height: 1.88;
+      color: #505050;
+    }
+  }
+  .schedule-property {
+    @include flex-align(space-between, flex-start);
+    span {
+      margin-left: 15px;
+    }
+  }
+  :focus {
+    outline: none;
+  }
+}
+@include tablet(){
+  .service-description {
+    min-width: auto;
+  }
+}
+@include mobile() {
+  .service-description {
+    .section-container {
+      padding: 40px 0 40px;
+    }
+    .service-description-img {
+      height: 200px;
+    }
+    .service-description-right {
+      margin-top: 30px;
+      & > div {
+        & > img {
+          margin-right: 5px;
+        }
+      }
+    }
+    .service-description-title {
+      margin-bottom: 30px;
+      font-size: 27px;
+    }
+    .service-description-txt {
+      font-size: 14px;
+    }
+    .service-description-location, .service-description-website, .service-description-schedule {
+      span, a {
+        font-size: 14px;
+      }
+      img {
+        width: 15px;
+        margin-right: 5px;
+      }
+    }
+    .service-description-website {
+      margin: 25px 0;
+    }
+  }
+}

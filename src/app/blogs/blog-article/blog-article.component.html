@@ -1,0 +1,94 @@
+<ngx-spinner
+  bdColor = "rgba(255, 255, 255, 1)"
+  size = "large"
+  color = "#fe5c5c"
+  type = "ball-spin"
+></ngx-spinner>
+<section class="blog-one-intro">
+  <div class="section-container">
+    <div class="blog-one-author" routerLink="/bloger">
+      <div class="blog-info-author" [routerLink]="['/bloger', this.currentBlog.bloger_info.blogerId]">
+        <div class="info-author-img"
+             [ngStyle]="{'background-image': 'url('+this.currentBlog.bloger_info.photo+')'}">
+        </div>
+        <div class="info-author-txt">
+          <span class="bold">{{this.currentBlog.bloger_info.name}}</span>
+          <span class="italic">{{this.currentBlog.bloger_info.type}}</span>
+        </div>
+      </div>
+      <span class="blog-date">{{this.currentBlog.date | date:'mediumDate'}}</span></div>
+    <h2 class="blog-info-title">{{this.currentBlog.title}}</h2>
+  </div>
+  <div class="blog-one-img" [ngStyle]="{'background-image': 'url('+this.currentBlog.photo+')'}"></div>
+</section>
+<section class="blog-one-content">
+  <div class="section-container">
+    <div class="blog-nav-soc"><a href="#"><img src="../../../assets/img/icons/fb-dark.svg"></a><a href="#"><img
+      src="../../../assets/img/icons/tw-dark.svg"></a><a href="#"><img
+      src="../../../assets/img/icons/mail-dark.svg"></a></div>
+    <div class="blog-one-txt">
+      <p>{{this.currentBlog.description}}</p>
+      <!--h3 & p-->
+    </div>
+  </div>
+</section>
+<section class="blog-one-comments">
+  <div class="section-container"><h3 class="blog-comments-title">Comments</h3>
+    <div class="blog-comments-write">
+      <div class="comments-area">
+        <div class="blog-info-author">
+          <div class="info-author-img"
+               [routerLink]="['/bloger', this.currentBlog.bloger_info.blogerId]"
+               [ngStyle]="{'background-image': 'url('+this.currentBlog.bloger_info.photo+')'}">
+          </div>
+        </div>
+        <textarea placeholder="Write your comment"></textarea></div>
+      <a class="btn">post</a></div>
+    <div class="blog-comments-list">
+      <!--<div class="comments-item">-->
+        <!--<div class="blog-info-author"><img src="../../../assets/img/home/face1.png">-->
+          <!--<div class="info-author-txt"><span class="bold">Maria Levandovski</span></div>-->
+        <!--</div>-->
+        <!--<div class="comments-item-info"><p>“It ain’t easy being cheesy.” Raclette has successfully-->
+          <!--challenged that statement. Raclette is a type of Swiss cheese that is fashioned into a wheel of-->
+          <!--13 lbs. It’s halved, and the inside is melted into a smooth lava-like perfection. It’s then-->
+          <!--poured over Eggs Beni or Savoyarde with cornichons or any other dish. Hearty, cheesy meals.</p>-->
+          <!--<span class="blog-date">Feb 9, 2018</span></div>-->
+      <!--</div>-->
+      <!--<div class="comments-item">-->
+        <!--<div class="blog-info-author"><img src="../../../assets/img/home/face1.png">-->
+          <!--<div class="info-author-txt"><span class="bold">Maria Levandovski</span></div>-->
+        <!--</div>-->
+        <!--<div class="comments-item-info"><p>“It ain’t easy being cheesy.” Raclette has successfully-->
+          <!--challenged that statement. Raclette is a type of Swiss cheese that is fashioned into a wheel of-->
+          <!--13 lbs. It’s halved, and the inside is melted into a smooth lava-like perfection. It’s then-->
+          <!--poured over Eggs Beni or Savoyarde with cornichons or any other dish. Hearty, cheesy meals.</p>-->
+          <!--<span class="blog-date">Feb 9, 2018</span></div>-->
+      <!--</div>-->
+    </div>
+  </div>
+</section>
+<section class="blog-one-similar">
+  <div class="section-container">
+    <div class="section-title">More in this theme</div>
+    <div class="blogs-container">
+      <div class="blogs-item" *ngFor="let blog of currentBlogerArticles">
+        <div class="blogs-item-img" [ngStyle]="{'background-image': 'url('+blog.photo+')'}"></div>
+        <div class="blogs-item-info"><span class="blog-info-date">{{blog.date | date:'mediumDate'}}</span>
+          <h2 class="blog-info-title">{{blog.title}}</h2>
+          <p class="blog-info-description">{{blog.description | ellipsis:80}}</p>
+          <a href="#" class="blog-info-read-more" [routerLink]="['/blog', blog.blogId]">Read more
+            <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
+          </a>
+          <div class="blog-info-author">
+            <div class="info-author-img" [ngStyle]="{'background-image': 'url('+blog.bloger_info.photo+')'}"></div>
+            <div class="info-author-txt">
+              <span class="bold">{{blog.bloger_info.name}}</span>
+              <span class="italic">{{blog.bloger_info.type}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

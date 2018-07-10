@@ -1,0 +1,79 @@
+@import "../../../style/base/variables";
+@import "../../../style/base/mixins";
+.get-app {
+  max-width: 550px;
+  h2 {
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.33;
+    text-align: left;
+    color: #505050;
+  }
+  p {
+    margin-top: 40px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.59;
+    letter-spacing: 0.3px;
+    text-align: left;
+    color: #454545;
+  }
+  .qr-container {
+    @include flex-align(flex-start, flex-start);
+  }
+  .qr {
+    &:not(:first-child){
+      margin-left: 40px;
+    }
+  }
+  .qr-title {
+    @include flex-align(flex-start, center);
+    img {
+      margin-right: 12px;
+    }
+  }
+  .qr-code {
+    img {
+      margin-top: 20px;
+      box-shadow: 0 3px 5px -1px rgba(0,0,0,.14), 0 6px 10px 0 rgba(0,0,0,.098), 0 1px 18px 0 rgba(0,0,0,.084);
+    }
+  }
+  .app-link {
+    display: none;
+    img {
+      width: 100px;
+    }
+  }
+}
+@include tablet(){
+  .get-app {
+    .qr-container {
+      margin-top: 30px;
+      @include flex-align(flex-start, flex-start);
+    }
+    .qr {
+      &:not(:first-child){
+        margin-left: 40px;
+      }
+    }
+    .qr-title {
+      display: none;
+    }
+    .qr-code {
+      display: none;
+    }
+    .app-link {
+      display: block;
+    }
+  }
+}
+@media (max-width: 500px){
+  .get-app {
+    padding: 14px;
+    .qr {
+      &:not(:first-child){
+        margin-left: 10px;
+      }
+    }
+  }
+}

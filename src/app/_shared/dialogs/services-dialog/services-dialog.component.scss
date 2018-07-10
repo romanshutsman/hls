@@ -1,0 +1,21 @@
+@import "../../../style/service-description";
+agm-map {
+  width: 100%;
+  height: 440px;
+}
+@include mobile(){
+  agm-map {
+    height: 300px;
+  }
+}
+.blog-info-read-more {
+  display: inline-block;
+  margin-top: 0;
+  cursor: pointer;
+}
+.read-less {
+  i {
+    margin-left: 0;
+    margin-right: 5px;
+  }
+}

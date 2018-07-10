@@ -1,0 +1,110 @@
+@import "app/style/main";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//STYLES FOR SLICK
+.slick-prev {
+  &:after {
+    content: "";
+    display: block;
+    width: 17px;
+    height: 31px;
+    background-image: url("assets/img/icons/arrow-next-black.svg");
+    background-size: cover;
+    transform: rotateY(180deg);
+    position: relative;
+    bottom: 19px;
+  }
+  &:before {
+    visibility: hidden;
+  }
+}
+
+.slick-next {
+  &:before {
+    content: "";
+    display: block;
+    width: 17px;
+    height: 31px;
+    background-image: url("assets/img/icons/arrow-next-black.svg");
+    background-size: cover;
+  }
+}
+
+.slick-dots {
+  bottom: -55px;
+}
+
+.top-services {
+  .slick-prev {
+    top: 115px;
+  }
+
+  .slick-next {
+    top: 115px;
+  }
+}
+
+.testimonials {
+  .slick-prev {
+    left: -70px;
+  }
+  .slick-dots {
+    bottom: -55px;
+  }
+}
+
+//SCROLL
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px white;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: grey;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: black;
+}
+
+@media (max-width: 1320px) {
+  .testimonials {
+    .slick-prev {
+      &:after {
+        display: none;
+      }
+    }
+
+    .slick-next {
+      &:before {
+        display: none;
+      }
+    }
+  }
+}
+@media (max-width: 1240px) {
+  .top-services {
+    .top-services-container {
+      overflowX: hidden;
+    }
+    .top-services-container .slick-next, .slick-prev {
+      visibility: hidden;
+      position: absolute;
+    }
+    .top-services-container .slick-dots {
+      bottom: -60px;
+    }
+  }
+}
+
+@media (max-width: 500px){
+  .mat-dialog-container {
+    padding: 10px !important;
+  }
+}

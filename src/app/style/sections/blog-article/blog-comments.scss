@@ -1,0 +1,120 @@
+.blog-one-comments {
+  .section-container {
+    padding-top: 40px;
+  }
+  .blog-comments-title {
+    font-size: 30.5px;
+    font-weight: 300;
+    letter-spacing: 0.6px;
+    text-align: left;
+    color: #505050;
+  }
+  .blog-comments-write {
+    max-width: 700px;
+    text-align: right;
+  }
+  .comments-area {
+    margin-top: 50px;
+    @include flex-align(flex-start, flex-start);
+    textarea {
+      width: 100%;
+      padding: 18px 40px;
+      height: 126px;
+      resize: none;
+      border: solid 1px #dbdbdb;
+      font-size: 17px;
+      font-weight: 300;
+      line-height: normal;
+      position: relative;
+      box-sizing: border-box;
+      &:focus {
+        outline: none;
+      }
+      &:before {
+        content: "";
+        width: 50px;
+        height: 50px;
+        border: solid 1px #dbdbdb;
+      }
+    }
+    ::placeholder {
+      font-size: 17px;
+      font-weight: 300;
+      font-style: italic;
+      color: #bdbdbd;
+    }
+  }
+  .blog-info-author {
+    margin-top: 0;
+    .info-author-txt {
+      display: none;
+    }
+  }
+  .btn {
+    margin-top: 35px;
+    padding: 20px 60px;
+  }
+  .blog-comments-list {
+    max-width: 700px;
+    margin-top: 35px;
+  }
+  .comments-item {
+    @include flex-align(flex-start, flex-start);
+    &:not(:first-child) {
+      margin-top: 55px;
+    }
+  }
+  .comments-item-info {
+    margin-left: 10px;
+    h4 {
+      font-size: 17px;
+      font-weight: bold;
+      line-height: 1.47;
+      letter-spacing: 0.3px;
+      text-align: left;
+      color: #454545;
+      margin-bottom: 30px;
+    }
+    p {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.59;
+      letter-spacing: 0.3px;
+      text-align: left;
+      color: #454545;
+    }
+  }
+  .blog-date {
+    margin-top: 30px;
+    float: right;
+  }
+}
+
+@include mobile() {
+  .blog-one-comments {
+    .blog-comments-write {
+      max-width: 100%;
+      text-align: left;
+    }
+    .blog-comments-list {
+      max-width: 100%;
+    }
+    .comments-area {
+      display: block;
+    }
+    .blog-info-author {
+      margin-bottom: 20px;
+      .info-author-txt {
+        display: block;
+      }
+    }
+    .comments-area {
+      textarea {
+        padding: 9px 20px;
+      }
+    }
+    .comments-item {
+      display: block;
+    }
+  }
+}

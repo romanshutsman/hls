@@ -1,0 +1,72 @@
+<ngx-spinner
+  bdColor = "rgba(255, 255, 255, 1)"
+  size = "large"
+  color = "#fe5c5c"
+  type = "ball-spin"
+></ngx-spinner>
+<div class="services-filter"><span class="services-filter-title">Show on map:</span>
+  <form class="services-type" [formGroup]="filterForm" (change)="setMarkers()">
+    <div class="services-type-item"><input id="s1" type="checkbox" formControlName='restaurant'><label for="s1"></label>Restaurants
+    </div>
+    <div class="services-type-item"><input id="s2" type="checkbox" formControlName='food_delivery'><label
+      for="s2"></label>Food delivery
+    </div>
+    <div class="services-type-item"><input id="s3" type="checkbox" formControlName='gym'><label for="s3"></label>Gym
+    </div>
+    <div class="services-type-item"><input id="s4" type="checkbox" formControlName='nutritionists'><label
+      for="s4"></label>Nytritionists
+    </div>
+    <div class="services-type-item"><input id="s5" type="checkbox" formControlName='shops'><label for="s5"></label>Shops
+    </div>
+    <div class="services-type-item big-checkbox">Show map<input id="s6" type="checkbox"
+                                                                (change)="showMap = !showMap"><label for="s6"></label>
+    </div>
+  </form>
+  <agm-map *ngIf="showMap"
+           [latitude]="lat"
+           [longitude]="lng"
+           [zoom]="zoom"
+  >
+    <agm-marker
+      *ngFor="let mark of markers; let i = index"
+      [latitude]="mark.lat"
+      [longitude]="mark.lng"
+      [label]="mark.label"
+      [iconUrl]="mark.img"
+    >
+    </agm-marker>
+  </agm-map>
+</div>
+<section class="services">
+  <div class="services-list-conatainer">
+    <div class="services-list" [ngClass]="{'open-map': showMap}">
+      <div class="services-list-menu">
+        <a [ngClass]="{'active': currentTypeOfServices === 'restaurant'}"
+           routerLink='/services/restaurant'>Restaurants</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'food_delivery'}" routerLink='/services/food_delivery'>Food
+          delivery</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'gym'}" routerLink='/services/gym'>Gyms</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'nutritionists'}" routerLink='/services/nutritionists'>Nytritionists</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'shops'}" routerLink='/services/shops'>Shops</a>
+      </div>
+      <div class="services-list-items" *ngIf="currentTypeOfServices && dataOfServices">
+        <div class="services-item" *ngFor="let service of dataOfServices[currentTypeOfServices]">
+          <div class="services-item-img" [ngStyle]="{'background-image': getImg(service.photos)}" (click)="openServiceDialog(service)"></div>
+          <div class="services-item-info">
+            <div class="services-item-title"><span (click)="openServiceDialog(service)">{{service.name}}</span><span
+              class="star-full"></span></div>
+            <p class="services-item-description">{{service.address}}</p></div>
+        </div>
+      </div>
+      <div class="services-list-menu bottom">
+        <a [ngClass]="{'active': currentTypeOfServices === 'restaurant'}"
+           routerLink='/services/restaurant'>Restaurants</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'food_delivery'}" routerLink='/services/food_delivery'>Food
+          delivery</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'gym'}" routerLink='/services/gym'>Gyms</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'nutritionists'}" routerLink='/services/nutritionists'>Nytritionists</a>
+        <a [ngClass]="{'active': currentTypeOfServices === 'shops'}" routerLink='/services/shops'>Shops</a>
+      </div>
+    </div>
+  </div>
+</section>
