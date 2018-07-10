@@ -1,0 +1,25 @@
+@import "../style/base/variables";
+@import "../style/base/mixins";
+
+form {
+  text-align: center;
+}
+
+input {
+  display: block;
+  margin-right: 0;
+}
+
+.btn {
+  border: none;
+  height: 57px;
+  line-height: 10px;
+}
+
+#recaptcha-container {
+  margin: 30px auto;
+@include flex-align(center, center);
+}
+.verify {
+  margin-top: 20px;
+}

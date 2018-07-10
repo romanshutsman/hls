@@ -1,0 +1,27 @@
+.partnership {
+  position: relative;
+  .section-container {
+    padding: 70px 25px 200px;
+  }
+  .business-img {
+    position: relative;
+    img {
+      position: absolute;
+      transform: translate(50px, -140px);
+    }
+  }
+}
+
+@include mobile() {
+  .partnership {
+    .section-container {
+      padding-top: 0;
+    }
+    .business-info {
+      width: 100%;
+    }
+    .business-img {
+      display: none;
+    }
+  }
+}

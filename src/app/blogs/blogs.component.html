@@ -1,0 +1,54 @@
+<ngx-spinner
+  bdColor = "rgba(255, 255, 255, 1)"
+  size = "large"
+  color = "#fe5c5c"
+  type = "ball-spin"
+></ngx-spinner>
+<section class="blogs-header">
+  <div class="container"><h2 class="blogs-title">Blogs</h2></div>
+</section>
+<section class="blogs">
+  <div class="container">
+    <!--<nav class="blogs-nav">-->
+    <!--<div class="blogs-nav-menu" [ngClass]="{'responsive': responsiveMenu}"><a href="#">Resent</a><a href="#">Most readible</a><a href="#">Best-->
+    <!--blogers</a><a href="#">Recomendations</a></div>-->
+    <!--<a class="burger" (click)="responsiveMenu = !responsiveMenu"><i class="fa fa-bars"></i></a>-->
+    <!--<div class="blogs-nav-soc"><a href="#"><img src="../../assets/img/icons/fb-dark.svg"></a><a href="#"><img-->
+    <!--src="../../assets/img/icons/tw-dark.svg"></a><a href="#"><img src="../../assets/img/icons/mail-dark.svg"></a></div>-->
+    <!--</nav>-->
+    <div class="main-blog">
+      <div class="main-blog-img" [ngStyle]="{'background-image': 'url('+blogs[0].photo+')'}"></div>
+      <div class="main-blog-info"><span class="blog-info-date">{{blogs[0].date | date:'mediumDate'}}</span>
+        <h2 class="blog-info-title">{{blogs[0].title}}</h2>
+        <p class="blog-info-description">{{blogs[0].description | ellipsis:80}}</p>
+        <a href="#" class="blog-info-read-more" [routerLink]="['/blog', blogs[0].blogId]">Read more<i
+          aria-hidden="true" class="fa fa-long-arrow-right"></i></a>
+        <div class="blog-info-author" [routerLink]="['/bloger', blogs[0].bloger_info.blogerId]">
+          <div class="info-author-img" [ngStyle]="{'background-image': 'url('+blogs[0].bloger_info.photo+')'}"></div>
+          <div class="info-author-txt"><span class="bold">{{blogs[0].bloger_info.name}}</span><span
+            class="italic">{{blogs[0].bloger_info.type}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="blogs-container">
+      <div class="blogs-item" *ngFor="let blog of blogs">
+        <div class="blogs-item-img" [ngStyle]="{'background-image': 'url('+blog.photo+')'}"></div>
+        <div class="blogs-item-info"><span class="blog-info-date">{{blog.date | date:'mediumDate'}}</span>
+          <h2 class="blog-info-title">{{blog.title}}</h2>
+          <p class="blog-info-description">{{blog.description | ellipsis:80}}</p>
+          <a href="#" class="blog-info-read-more" [routerLink]="['/blog', blog.blogId]">Read more
+            <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
+          </a>
+          <div class="blog-info-author" [routerLink]="['/bloger', blog.bloger_info.blogerId]">
+            <div class="info-author-img" [ngStyle]="{'background-image': 'url('+blog.bloger_info.photo+')'}"></div>
+            <div class="info-author-txt">
+              <span class="bold">{{blog.bloger_info.name}}</span>
+              <span class="italic">{{blog.bloger_info.type}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

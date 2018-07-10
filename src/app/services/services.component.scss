@@ -1,0 +1,20 @@
+@import "../style/services";
+.empty {
+  font-size: 50px;
+  margin-top: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #808080;
+}
+agm-map {
+  width: 33vw;
+  position: fixed;
+  top: 125px;
+  right: 0;
+  height: calc(100vh - 125px);
+}
+@include tablet(){
+  agm-map {
+    display: none;
+  }
+}

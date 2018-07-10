@@ -1,0 +1,140 @@
+<section class="main">
+  <div class="overlay"></div>
+  <div class="main-info"><h1 data-aos="fade-up" class="main-info-title">Everything you
+    need<br>for your<span class="txt-yellow"> healthy lifestyle</span></h1>
+    <p data-aos="fade-up" class="main-info-description">Healthy
+      Lifestyle has a list of restaurants, gyms, nutritionists etc. We offer discounts,<br>bonuses and free
+      consultations with experts for your healthy lifestyle.</p><a routerLink="/about-services"
+                                                                   data-aos="fade-up" class="btn">see all
+      services</a></div>
+</section>
+<section class="how-it-works">
+  <div class="section-container"><h2 class="section-title">How it works</h2>
+    <div class="hiw-item-container">
+      <div class="hiw-item">
+        <div class="number-round">1</div>
+        <p> Search and choose restaurants, gyms, nutritionists, food delivery and shops, on our site or
+          app.</p></div>
+      <div class="hiw-item">
+        <div class="number-round">2</div>
+        <p> Get exclusive discounts for visiting those plases.</p></div>
+      <div class="hiw-item">
+        <div class="number-round">3</div>
+        <p> Buy Premium and get to 90% discounts in our favourite plases.</p></div>
+    </div>
+    <a href="#" class="btn">get the app</a><img src="../../assets/img/home/devices.png" class="hiw-img"></div>
+</section>
+<section class="type-of-service">
+  <div class="container">
+    <div class="tos-item"><img src="../../assets/img/icons/leaf.png">
+      <h3>Only healthy places</h3>
+      <p>Buy Premium and get to 90% discounts in our favourite plases.</p></div>
+    <div class="tos-item"><img src="../../assets/img/icons/phone.png">
+      <h3>All servises in one place</h3>
+      <p>Buy Premium and get to 90% discounts in our favourite plases.</p></div>
+    <div class="tos-item"><img src="../../assets/img/icons/discount.png">
+      <h3>Great amount of discounts</h3>
+      <p>Buy Premium and get to 90% discounts in our favourite plases.</p></div>
+  </div>
+</section>
+<section class="get-premium">
+  <div class="container">
+    <div class="get-premium-txt"><h2>With<span class="bold"> Premium</span> you can get<span class="bold"> great discount</span>
+      for a small pay</h2>
+      <p>Learn about our best offers</p></div>
+    <a routerLink="app-premiums" class="btn" routerLink="/premium">get premium</a></div>
+</section>
+<section class="testimonials">
+  <div class="section-container"><h2 class="section-title">Testimonials</h2>
+    <ngx-slick class="responses-container" [config]="slideConfig" #slickModal="slick-modal">
+      <div class="responses-item" ngxSlickItem  *ngFor="let review of reviews">
+        <div class="responses-item-img"><img src="{{review.img}}"></div>
+        <div class="responses-item-txt"><p class="responses-item-txt_title">{{review.txt}}</p><span class="responses-item-txt_author">{{review.author}}</span></div>
+      </div>
+    </ngx-slick>
+  </div>
+</section>
+<section class="work-ny">
+  <div class="block-txt">CHOOSE YOUR CITY</div>
+  <div class="section-container"><h2 class="section-title">We are working in New York</h2>
+    <p>Do you want to have our servises in your city? Please, let us know. Or vote for your sity
+      in the form below.</p>
+    <div class="cities-container" *ngIf="!showCharts">
+      <div class="city-item"><label for="r-1"><input id="r-1" type="radio" name="city" checked (change)="selectCity($event)"><span
+        class="checkmark"></span>Los Angeles</label>
+        <div class="img-wrap"><img src="../../assets/img/home/city1.png"></div>
+      </div>
+      <div class="city-item"><label for="r-2"><input id="r-2" type="radio" name="city" (change)="selectCity($event)"><span
+        class="checkmark"></span>Chicago</label>
+        <div class="img-wrap"><img src="../../assets/img/home/city4.png"></div>
+      </div>
+      <div class="city-item"><label for="r-3"><input id="r-3" type="radio" name="city" (change)="selectCity($event)"><span
+        class="checkmark"></span>Houston</label>
+        <div class="img-wrap"><img src="../../assets/img/home/city2.png"></div>
+      </div>
+      <div class="city-item"><label for="r-4"><input id="r-4" type="radio" name="city" (change)="selectCity($event)"><span
+        class="checkmark"></span>San Francisco</label>
+        <div class="img-wrap"><img src="../../assets/img/home/city3.png"></div>
+      </div>
+      <div class="city-item"><label for="r-5"><input id="r-5" type="radio" name="city" (change)="selectCity($event)"><span
+        class="checkmark"></span>Detroit</label>
+        <div class="img-wrap"><img src="../../assets/img/home/city4.png"></div>
+      </div>
+      <div class="city-item"><label for="r-6"><input id="r-6" type="radio" name="city" (change)="selectCity($event)"><span
+        class="checkmark"></span>Seattle</label>
+        <div class="img-wrap"><img src="../../assets/img/home/city5.png"></div>
+      </div>
+    </div>
+    <app-chart *ngIf="showCharts"></app-chart>
+  </div>
+</section>
+<section class="partners">
+  <div class="section-container"><h2 class="section-title">Our partners</h2>
+    <div class="partners-container"><a href="#" class="partners-item"><img
+      src="../../assets/img/brands/organic2.png"></a><a
+      href="#" class="partners-item"><img src="../../assets/img/brands/food-style2.png"></a><a href="#"
+                                                                                               class="partners-item"><img
+      src="../../assets/img/brands/empario2.png"></a><a href="#" class="partners-item"><img
+      src="../../assets/img/brands/toma2.png"></a><a
+      href="#" class="partners-item"><img src="../../assets/img/brands/healthy-eating.png"></a></div>
+  </div>
+</section>
+<section class="tell-more">
+  <div class="section-container"><h2 class="section-title">We have more to tell you about healthy food</h2>
+    <a routerLink="/blogs">READ ALL BLOGS</a>
+    <div class="blog-container">
+      <div class="blog-item">
+        <div class="blog-item-head"><img src="../../assets/img/home/hl.png">
+          <div class="blog-item-head_txt"><span class="bold">Healthy Lifestyle blog</span><span
+            class="italic">favourite</span></div>
+        </div>
+        <div class="blog-item-body">
+          <div class="overlay"></div>
+          <a routerLink="/blogs" class="btn-opacity">read blog</a></div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-item-head"><img src="../../assets/img/home/face2.png">
+          <div class="blog-item-head_txt"><span class="bold">Maria Levandovski</span><span
+            class="italic">nutritionist</span>
+          </div>
+        </div>
+        <div class="blog-item-body">
+          <div class="overlay"></div>
+          <a routerLink="/blogs" class="btn-opacity">read blog</a></div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-item-head"><img src="../../assets/img/home/face3.png">
+          <div class="blog-item-head_txt"><span class="bold">Maria Levandovski</span><span
+            class="italic">nutritionist</span>
+          </div>
+        </div>
+        <div class="blog-item-body">
+          <div class="overlay"></div>
+          <a routerLink="/blogs" class="btn-opacity">read blog</a></div>
+      </div>
+    </div>
+    <div class="email-block"><h3>Get our updates and special offers to mail</h3>
+      <form><input type="text" placeholder="Enter your email"><a href="#" class="btn">subscribe</a></form>
+    </div>
+  </div>
+</section>

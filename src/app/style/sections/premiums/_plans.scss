@@ -1,0 +1,210 @@
+.plans {
+  background-image: linear-gradient(
+                  to bottom,
+                  $color_dark_yellow,
+                  $color_dark_yellow 15%,
+                  $color_dark_yellow 15%,
+                  $color_dark_yellow 80%,
+                  #fff 80%
+  );
+  text-align: center;
+  .section-container {
+    padding-bottom: 50px;
+  }
+  .section-title {
+    font-size: 35px;
+    margin-bottom: 50px;
+  }
+  .plans-data {
+    margin-top: 50px;
+    @include flex-align(space-between, flex-start);
+  }
+  .plans-data-item {
+    max-width: 360px;
+    background-color: $color_white;
+    box-shadow: 0px 4px 7px 0 rgba(52, 39, 18, 0.15);
+    padding: 50px 35px 35px;
+  }
+  .data-item-title {
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: $color_black;
+
+  }
+  .data-item-discount {
+    white-space: pre;
+    font-size: 21px;
+    font-weight: 100;
+    color: $color_low_black;
+    margin: 40px 0 50px;
+    .green-txt {
+      font-size: 30px;
+      font-weight: 500;
+      color: #87c96e;
+    }
+  }
+  .data-item-conditions {
+    li {
+      position: relative;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.56;
+      letter-spacing: 0.3px;
+      color: $color_low_black;
+      padding-left: 40px;
+      &:not(:first-child) {
+        margin-top: 25px;
+      }
+      &:before {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 11px;
+        height: 11px;
+        margin-right: 20px;
+        background-size: cover;
+        background-image: url("../../assets/img/icons/suc.svg");
+      }
+      &.grey {
+        color: #b6b6b6;
+        &:before {
+          background-image: url("../../assets/img/icons/close.svg");
+        }
+      }
+    }
+  }
+  .data-item-price {
+    display: block;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 100;
+    color: $color_low_black;
+    margin: 45px 0 20px;
+    .bold-large-txt {
+      font-size: 35px;
+      font-weight: normal;
+      text-align: left;
+      color: $color_black;
+    }
+  }
+  .plans-data-item:nth-child(1) .btn {
+    background-color: rgba(69, 69, 69, 1);
+  }
+  .plans-data-item:nth-child(2) .btn {
+    background-color: rgba(224, 174, 88, 1);
+  }
+  .plans-data-item:nth-child(3) .btn {
+    background-color: rgba(255, 92, 92, 1);
+  }
+  .faq, .faq a {
+    margin-top: 30px;
+    font-size: $font_size_simple;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    text-align: left;
+    color: $color_black;
+    a {
+      border-bottom: 1px solid #bcbcbc;
+    }
+  }
+  input {
+    display: none;
+  }
+  label {
+    width: 134px;
+    display: inline-block;
+    border: solid 1px #454545;
+    padding: 10px 0;
+    color: $color_low_black;
+    font-size: $font_size_simple;
+    &[for="monthly"] {
+      border-radius: 32px 0 0 32px;
+    }
+    &[for="annual"] {
+      border-radius: 0 32px 32px 0;
+    }
+  }
+  .annual, .monthly {
+    display: none;
+  }
+  input#monthly:checked ~ label[for="monthly"] {
+    background: $color_low_black;
+    color: $color_white;
+    font-weight: 900;
+  }
+  input#annual:checked ~ label[for="annual"] {
+    background: $color_low_black;
+    color: $color_white;
+    font-weight: 900;
+  }
+  input#monthly:checked ~ .monthly {
+    display: flex;
+  }
+  input#annual:checked ~ .annual {
+    display: flex;
+  }
+}
+@media(max-width: 1190px) and (min-width: 1024px){
+  .plans {
+    background-image: linear-gradient(
+                    to bottom,
+                    $color_dark_yellow,
+                    $color_dark_yellow 15%,
+                    $color_dark_yellow 15%,
+                    $color_dark_yellow 90%,
+                    #fff 90%
+    );
+    .plans-data {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .plans-data-item:last-child {
+      margin-top: 50px;
+    }
+    .plans-data-item:first-child {
+      margin-right: 50px;
+    }
+    .plans-data-item {
+
+    }
+  }
+}
+@include tablet() {
+  .plans {
+    background-image: linear-gradient(
+                    to bottom,
+                    $color_dark_yellow,
+                    $color_dark_yellow 15%,
+                    $color_dark_yellow 15%,
+                    $color_dark_yellow 94%,
+                    #fff 94%
+    );
+    .plans-data {
+      flex-direction: column;
+      align-items: center;
+    }
+    .plans-data-item:not(:first-child) {
+      margin-top: 30px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .plans {
+    .plans-data-item {
+      padding: 25px 15px 20px;
+    }
+    .data-item-conditions {
+      li {
+        padding-left: 20px;
+        &:before {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

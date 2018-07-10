@@ -1,0 +1,12 @@
+<button class="btn" (click)="singUpGmail()">Sign up via Google</button>
+<button class="btn" (click)="singUpFacebook()">Sign up via Facebook</button>
+<form [formGroup]="authForm">
+  <input type="text" placeholder="Type your number" formControlName="phoneNumber">
+  <div id="recaptcha-container"></div>
+  <div *ngIf="windowRef.confirmationResult">
+    <label for="code">Enter your Verification Code Here</label><br>
+    <input type="text" id="code" formControlName="verificationCode">
+  </div>
+  <button (click)="sendLoginCode()" *ngIf="!windowRef.confirmationResult" class="btn">SMS Text Login Code</button>
+  <button (click)="verifyLoginCode()" *ngIf="windowRef.confirmationResult" class="btn verify">verify</button>
+</form>
