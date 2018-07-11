@@ -935,7 +935,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button class=\"btn\" (click)=\"singUpGmail()\">Sign up via Google</button>\r\n<button class=\"btn\" (click)=\"singUpFacebook()\">Facebook</button>\r\n<form [formGroup]=\"authForm\">\r\n  <input type=\"text\" placeholder=\"Type your number\" formControlName=\"phoneNumber\">\r\n  <div id=\"recaptcha-container\"></div>\r\n  <div *ngIf=\"windowRef.confirmationResult\">\r\n    <label for=\"code\">Enter your Verification Code Here</label><br>\r\n    <input type=\"text\" id=\"code\" formControlName=\"verificationCode\">\r\n  </div>\r\n  <button (click)=\"sendLoginCode()\" *ngIf=\"!windowRef.confirmationResult\" class=\"btn\">SMS Text Login Code</button>\r\n  <button (click)=\"verifyLoginCode()\" *ngIf=\"windowRef.confirmationResult\" class=\"btn verify\">verify</button>\r\n</form>\r\n"
+module.exports = "<button class=\"btn\" (click)=\"singUpGmail()\">Sign up via Google</button>\r\n<button class=\"btn\" (click)=\"singUpFacebook()\">FB</button>\r\n<form [formGroup]=\"authForm\">\r\n  <input type=\"text\" placeholder=\"Type your number\" formControlName=\"phoneNumber\">\r\n  <div id=\"recaptcha-container\"></div>\r\n  <div *ngIf=\"windowRef.confirmationResult\">\r\n    <label for=\"code\">Enter your Verification Code Here</label><br>\r\n    <input type=\"text\" id=\"code\" formControlName=\"verificationCode\">\r\n  </div>\r\n  <button (click)=\"sendLoginCode()\" *ngIf=\"!windowRef.confirmationResult\" class=\"btn\">SMS Text Login Code</button>\r\n  <button (click)=\"verifyLoginCode()\" *ngIf=\"windowRef.confirmationResult\" class=\"btn verify\">verify</button>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -1083,7 +1083,28 @@ var AuthComponent = /** @class */ (function () {
             // ...
         });
     };
+    AuthComponent.prototype.statusChangeCallback = function (response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            console.log(response);
+        }
+        else {
+            // The person is not logged into your app or we are unable to tell.
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+        }
+    };
     AuthComponent.prototype.singUpFacebook = function () {
+        FB.getLoginStatus(function (response) {
+            console.log(response);
+            this.statusChangeCallback(response);
+        });
         FB.login(function (result) {
             console.log(result);
         }, { scope: 'user_friends' });
