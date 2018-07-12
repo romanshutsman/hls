@@ -89,6 +89,8 @@ export class AuthComponent implements OnInit {
       if (gId) {
         const phoneNumber = firebase.auth().currentUser.phoneNumber;
         const userId = firebase.auth().currentUser.uid;
+        console.log(this.uid);
+        console.log(userId);
         const idStr = gId.toString();
         const d = {};
         d['googleId'] = idStr;
