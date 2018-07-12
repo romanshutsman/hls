@@ -765,6 +765,14 @@ var AppComponent = /** @class */ (function () {
             storageBucket: "healthy-lifestyle-9ae39.appspot.com",
             messagingSenderId: "15808880644"
         };
+        // const  config = {
+        //   apiKey: "AIzaSyCr3bMGJSv8w12heh5_brUCg7kUCSjFSbs",
+        //   authDomain: "healthy-lifestyle-9ae39.firebaseapp.com",
+        //   databaseURL: "https://healthy-lifestyle-9ae39.firebaseio.com",
+        //   projectId: "healthy-lifestyle-9ae39",
+        //   storageBucket: "healthy-lifestyle-9ae39.appspot.com",
+        //   messagingSenderId: "15808880644"
+        // };
         firebase__WEBPACK_IMPORTED_MODULE_1__["initializeApp"](config);
     };
     AppComponent = __decorate([
@@ -828,12 +836,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _additional_pages_privacy_policy_privacy_policy_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./additional-pages/privacy-policy/privacy-policy.component */ "./src/app/additional-pages/privacy-policy/privacy-policy.component.ts");
 /* harmony import */ var _additional_pages_terms_conditions_terms_conditions_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./additional-pages/terms-conditions/terms-conditions.component */ "./src/app/additional-pages/terms-conditions/terms-conditions.component.ts");
 /* harmony import */ var _shared_service_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./_shared/service.service */ "./src/app/_shared/service.service.ts");
+/* harmony import */ var _auth_social_auth_social_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./auth-social/auth-social.component */ "./src/app/auth-social/auth-social.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -895,7 +905,8 @@ var AppModule = /** @class */ (function () {
                 _auth_auth_component__WEBPACK_IMPORTED_MODULE_31__["AuthComponent"],
                 _additional_pages_faq_faq_component__WEBPACK_IMPORTED_MODULE_32__["FaqComponent"],
                 _additional_pages_privacy_policy_privacy_policy_component__WEBPACK_IMPORTED_MODULE_33__["PrivacyPolicyComponent"],
-                _additional_pages_terms_conditions_terms_conditions_component__WEBPACK_IMPORTED_MODULE_34__["TermsConditionsComponent"]
+                _additional_pages_terms_conditions_terms_conditions_component__WEBPACK_IMPORTED_MODULE_34__["TermsConditionsComponent"],
+                _auth_social_auth_social_component__WEBPACK_IMPORTED_MODULE_36__["AuthSocialComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -918,10 +929,297 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [_shared_service_service__WEBPACK_IMPORTED_MODULE_35__["ServiceService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
-            entryComponents: [_shared_dialogs_services_dialog_services_dialog_component__WEBPACK_IMPORTED_MODULE_28__["ServicesDialogComponent"], _shared_dialogs_get_app_get_app_component__WEBPACK_IMPORTED_MODULE_29__["GetAppComponent"], _auth_auth_component__WEBPACK_IMPORTED_MODULE_31__["AuthComponent"]]
+            entryComponents: [_shared_dialogs_services_dialog_services_dialog_component__WEBPACK_IMPORTED_MODULE_28__["ServicesDialogComponent"], _shared_dialogs_get_app_get_app_component__WEBPACK_IMPORTED_MODULE_29__["GetAppComponent"], _auth_auth_component__WEBPACK_IMPORTED_MODULE_31__["AuthComponent"], _auth_social_auth_social_component__WEBPACK_IMPORTED_MODULE_36__["AuthSocialComponent"]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auth-social/auth-social.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/auth-social/auth-social.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"sign_up\">\n  <button class=\"g-signin2 btn\" data-onsuccess=\"onSignIn\" (click)=\"onSignIn()\">Sign up via Google</button>\n  <!-- <button class=\"btn\" (click)=\"singUpGmail()\">Sign up via Google</button> -->\n  <button class=\"btn\" (click)=\"singUpFacebook()\">Sign up via Facebook</button>\n  <button class=\"btn\" (click)=\"singUpNumber()\" >Sign up via phone Number</button>\n</div>\n<p class=\"error\">{{msg}}</p>"
+
+/***/ }),
+
+/***/ "./src/app/auth-social/auth-social.component.scss":
+/*!********************************************************!*\
+  !*** ./src/app/auth-social/auth-social.component.scss ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "form {\n  text-align: center; }\n\ninput {\n  display: block;\n  margin-right: auto;\n  margin-left: auto; }\n\n.btn {\n  border: none;\n  height: 57px;\n  line-height: 10px;\n  margin-bottom: 20px; }\n\n#recaptcha-container {\n  margin: 30px auto;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.verify {\n  margin-top: 20px; }\n\n.sign_up {\n  display: flex;\n  flex-direction: column; }\n\n.error {\n  color: #e74747;\n  text-align: center; }\n"
+
+/***/ }),
+
+/***/ "./src/app/auth-social/auth-social.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/auth-social/auth-social.component.ts ***!
+  \******************************************************/
+/*! exports provided: AuthSocialComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthSocialComponent", function() { return AuthSocialComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _shared_service_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../_shared/service.service */ "./src/app/_shared/service.service.ts");
+/* harmony import */ var _auth_auth_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../auth/auth.component */ "./src/app/auth/auth.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+// import { SocialUser } from 'angularx-social-login';
+// import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+// import { AuthService } from 'angularx-social-login';
+var AuthSocialComponent = /** @class */ (function () {
+    function AuthSocialComponent(dialogRef, service, dialog) {
+        this.dialogRef = dialogRef;
+        this.service = service;
+        this.dialog = dialog;
+    }
+    AuthSocialComponent_1 = AuthSocialComponent;
+    AuthSocialComponent.prototype.ngOnInit = function () {
+        FB.init({
+            appId: '235103837267101',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+    };
+    AuthSocialComponent.prototype.googleInit = function () {
+        var _this = this;
+        gapi.load('auth2', function () {
+            _this.auth2 = gapi.auth2.init({
+                client_id: '15808880644-eh0h91pl7rpq66fn9qfk55f3i0mc7gup.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile email'
+            });
+        });
+    };
+    AuthSocialComponent.prototype.singUpNumber = function () {
+        this.dialog.open(_auth_auth_component__WEBPACK_IMPORTED_MODULE_4__["AuthComponent"]);
+        this.dialogRef.close(AuthSocialComponent_1);
+    };
+    AuthSocialComponent.prototype.singUpGmail = function () {
+        var _this = this;
+        this.dialog.open(_auth_auth_component__WEBPACK_IMPORTED_MODULE_4__["AuthComponent"]);
+        this.dialogRef.close(AuthSocialComponent_1);
+        var provider = new firebase__WEBPACK_IMPORTED_MODULE_2__["auth"].GoogleAuthProvider();
+        firebase__WEBPACK_IMPORTED_MODULE_2__["auth"]().signInWithPopup(provider).then(function (result) {
+            var token = result.credential.accessToken;
+            var user = result.user;
+            console.log(result);
+            var googleId = result['additionalUserInfo']['profile']['id'];
+        })
+            .then(function () {
+            _this.authUserGoogle();
+        })
+            .catch(function (error) {
+            console.log(error);
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            var email = error.email;
+            var credential = error.credential;
+            this.msg = errorMessage;
+        });
+    };
+    AuthSocialComponent.prototype.authUserGoogle = function () {
+        var _this = this;
+        var googleId = firebase__WEBPACK_IMPORTED_MODULE_2__["auth"]().currentUser.providerData[0]['uid'];
+        firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users').once('value', function (snap) {
+            var data = snap.val();
+            var keys = Object.keys(data);
+            for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+                var key = keys_1[_i];
+                firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users/' + key).once('value', function (snapshot) {
+                    var userInfo = snapshot.val();
+                    var id = userInfo['googleId'];
+                    if (id) {
+                        // console.log(id);
+                        // console.log(googleId);
+                        if (id == googleId) {
+                            console.log('Match');
+                            _this.closeDiaslog();
+                            _this.service.transferData(true);
+                            var provider = firebase__WEBPACK_IMPORTED_MODULE_2__["auth"]().currentUser.providerData[0]['providerId'];
+                            if (provider == 'google.com') {
+                                var user = firebase__WEBPACK_IMPORTED_MODULE_2__["auth"]().currentUser;
+                                user.delete().then(function () {
+                                    console.log('delete');
+                                }, function (error) {
+                                    console.log(error);
+                                });
+                            }
+                            if (provider == 'facebook.com') {
+                                var user = firebase__WEBPACK_IMPORTED_MODULE_2__["auth"]().currentUser;
+                                user.delete().then(function () {
+                                    console.log('delete');
+                                }, function (error) {
+                                    console.log(error);
+                                });
+                            }
+                            return;
+                        }
+                        else {
+                            console.log('doesnt exist');
+                        }
+                    }
+                });
+            }
+        });
+    };
+    AuthSocialComponent.prototype.closeDiaslog = function () {
+        this.dialog.closeAll();
+    };
+    AuthSocialComponent.prototype.singUpFacebook = function () {
+        var _this = this;
+        this.dialog.open(_auth_auth_component__WEBPACK_IMPORTED_MODULE_4__["AuthComponent"]);
+        this.dialogRef.close(AuthSocialComponent_1);
+        var provider = new firebase__WEBPACK_IMPORTED_MODULE_2__["auth"].FacebookAuthProvider();
+        firebase__WEBPACK_IMPORTED_MODULE_2__["auth"]().signInWithPopup(provider).then(function (result) {
+            var token = result.credential.accessToken;
+            var user = result.user;
+            console.log(result);
+        })
+            .then(function () {
+            _this.authUserFacebook();
+        })
+            .catch(function (error) {
+            console.log(error);
+            this.dialog.open(AuthSocialComponent_1);
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            var email = error.email;
+            var credential = error.credential;
+            this.msg = errorMessage;
+        });
+    };
+    AuthSocialComponent.prototype.authUserFacebook = function () {
+        var _this = this;
+        var facebookId = firebase__WEBPACK_IMPORTED_MODULE_2__["auth"]().currentUser.providerData[0]['uid'];
+        firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users').once('value', function (snap) {
+            var data = snap.val();
+            var keys = Object.keys(data);
+            for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
+                var key = keys_2[_i];
+                firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users/' + key).once('value', function (snapshot) {
+                    var userInfo = snapshot.val();
+                    var id = userInfo['facebookId'];
+                    if (id) {
+                        // console.log(id);
+                        // console.log(googleId);
+                        if (id == facebookId) {
+                            console.log('Match');
+                            _this.closeDiaslog();
+                            _this.service.transferData(true);
+                            return;
+                        }
+                        else {
+                            console.log('doesnt exist');
+                        }
+                    }
+                });
+            }
+        });
+    };
+    AuthSocialComponent.prototype.onSignIn = function () {
+        var _this = this;
+        var googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+        console.log('Token id: ' + googleUser.getAuthResponse().id_token);
+        this.dialog.open(_auth_auth_component__WEBPACK_IMPORTED_MODULE_4__["AuthComponent"]);
+        var profile = googleUser.getBasicProfile();
+        console.log(googleUser);
+        console.log(profile);
+        var googleId = profile.getId();
+        // const profile = googleUser.getBasicProfile();
+        console.log('ID: ' + googleId); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        if (googleId) {
+            firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users').once('value', function (snap) {
+                var data = snap.val();
+                var keys = Object.keys(data);
+                for (var _i = 0, keys_3 = keys; _i < keys_3.length; _i++) {
+                    var key = keys_3[_i];
+                    firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users/' + key).once('value', function (snapshot) {
+                        var userInfo = snapshot.val();
+                        var id = userInfo['googleId'];
+                        if (id) {
+                            // console.log(id);
+                            // console.log(googleId);
+                            if (id == googleId) {
+                                console.log('Match');
+                                _this.closeDiaslog();
+                                _this.service.transferData(true);
+                            }
+                            else {
+                                console.log('doesnt exist');
+                                localStorage.setItem('gm', googleId);
+                            }
+                        }
+                    });
+                }
+            });
+            // this.service.transferData(true);
+            // this.closeDiaslog();
+            console.log('true');
+        }
+    };
+    AuthSocialComponent.prototype.attachSignin = function (element) {
+        this.auth2.attachClickHandler(element, {}, function (loggedInUser) {
+            console.log(loggedInUser);
+        }, function (error) {
+            // alert(JSON.stringify(error, undefined, 2));
+        });
+    };
+    AuthSocialComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        // this.googleInit();
+        gapi.load('auth2', function () {
+            _this.auth2 = gapi.auth2.init({
+                client_id: '15808880644-eh0h91pl7rpq66fn9qfk55f3i0mc7gup.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile email'
+            });
+            _this.attachSignin(document.getElementById('glogin'));
+        });
+    };
+    AuthSocialComponent = AuthSocialComponent_1 = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-auth-social',
+            template: __webpack_require__(/*! ./auth-social.component.html */ "./src/app/auth-social/auth-social.component.html"),
+            styles: [__webpack_require__(/*! ./auth-social.component.scss */ "./src/app/auth-social/auth-social.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _shared_service_service__WEBPACK_IMPORTED_MODULE_3__["ServiceService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
+    ], AuthSocialComponent);
+    return AuthSocialComponent;
+    var AuthSocialComponent_1;
 }());
 
 
@@ -935,7 +1233,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button class=\"btn\" (click)=\"singUpGmail()\">Sign up via Google</button>\r\n<button class=\"btn\" (click)=\"singUpFacebook()\">Sign up via Facebook</button>\r\n<form [formGroup]=\"authForm\">\r\n  <input type=\"text\" placeholder=\"Type your number\" formControlName=\"phoneNumber\">\r\n  <div id=\"recaptcha-container\"></div>\r\n  <div *ngIf=\"windowRef.confirmationResult\">\r\n    <label for=\"code\">Enter your Verification Code Here</label><br>\r\n    <input type=\"text\" id=\"code\" formControlName=\"verificationCode\">\r\n  </div>\r\n  <button (click)=\"sendLoginCode()\" *ngIf=\"!windowRef.confirmationResult\" class=\"btn\">SMS Text Login Code</button>\r\n  <button (click)=\"verifyLoginCode()\" *ngIf=\"windowRef.confirmationResult\" class=\"btn verify\">verify</button>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"authForm\" >\r\n  <input type=\"text\" placeholder=\"Type your number\" formControlName=\"phoneNumber\">\r\n  <div id=\"recaptcha-container\"></div>\r\n  <div *ngIf=\"windowRef.confirmationResult\">\r\n    <label for=\"code\">Enter your Verification Code Here</label><br>\r\n    <input type=\"text\" id=\"code\" formControlName=\"verificationCode\">\r\n  </div>\r\n  <button (click)=\"sendLoginCode()\" *ngIf=\"!windowRef.confirmationResult\" class=\"btn\">SMS Text Login Code</button>\r\n  <button (click)=\"verifyLoginCode()\" *ngIf=\"windowRef.confirmationResult\" class=\"btn verify\">verify</button>\r\n</form>\r\n<p class=\"error\">{{msg}}</p>"
 
 /***/ }),
 
@@ -946,7 +1244,7 @@ module.exports = "<button class=\"btn\" (click)=\"singUpGmail()\">Sign up via Go
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "form {\n  text-align: center; }\n\ninput {\n  display: block;\n  margin-right: 0; }\n\n.btn {\n  border: none;\n  height: 57px;\n  line-height: 10px; }\n\n#recaptcha-container {\n  margin: 30px auto;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.verify {\n  margin-top: 20px; }\n"
+module.exports = "form {\n  text-align: center; }\n\ninput {\n  display: block;\n  margin-right: auto;\n  margin-left: auto; }\n\n.btn {\n  border: none;\n  height: 57px;\n  line-height: 10px;\n  margin-bottom: 20px; }\n\n#recaptcha-container {\n  margin: 30px auto;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n\n.verify {\n  margin-top: 20px; }\n\n.sign_up {\n  display: flex;\n  flex-direction: column; }\n\n.error {\n  color: #e74747;\n  text-align: center; }\n"
 
 /***/ }),
 
@@ -983,12 +1281,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var AuthComponent = /** @class */ (function () {
-    function AuthComponent(dialogRef, afAuth, fb, service) {
+    function AuthComponent(dialogRef, afAuth, fb, service, dialog) {
         this.dialogRef = dialogRef;
         this.afAuth = afAuth;
         this.fb = fb;
         this.service = service;
+        this.dialog = dialog;
         this.isAuthentificated = false;
+        this.showBlockNumber = false;
     }
     AuthComponent_1 = AuthComponent;
     AuthComponent.prototype.ngOnInit = function () {
@@ -1008,6 +1308,7 @@ var AuthComponent = /** @class */ (function () {
         firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().signInWithPhoneNumber(num, appVerifier)
             .then(function (result) {
             _this.windowRef.confirmationResult = result;
+            console.log(result);
         })
             .catch(function (error) {
             console.log(error);
@@ -1020,8 +1321,12 @@ var AuthComponent = /** @class */ (function () {
             .confirm(verificationCode)
             .then(function (result) {
             _this.user = result.user;
+            console.log(result);
+            _this.uid = _this.user['uid'];
             _this.isAuthentificated = true;
             _this.dialogRef.close(AuthComponent_1);
+        })
+            .then(function () {
             localStorage.setItem('auth', 'true');
             _this.service.transferData(_this.isAuthentificated);
         })
@@ -1031,96 +1336,21 @@ var AuthComponent = /** @class */ (function () {
             localStorage.setItem('auth', 'false');
             _this.service.transferData(_this.isAuthentificated);
         });
-    };
-    AuthComponent.prototype.singUpGmail = function () {
-        var provider = new firebase__WEBPACK_IMPORTED_MODULE_3__["auth"].GoogleAuthProvider();
-        firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().signInWithPopup(provider).then(function (result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            console.log(result);
-            // console.log(result['additionalUserInfo']['profile']['id']);
-            var googleId = result['additionalUserInfo']['profile']['id'];
-            // console.log(this.googleId);
-            console.log(user);
-            firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users').once('value', function (snap) {
-                var data = snap.val();
-                console.log(data);
-                var keys = Object.keys(data);
-                console.log(keys);
-                for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
-                    var key = keys_1[_i];
-                    firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + key).once('value', function (snapshot) {
-                        var userInfo = snapshot.val();
-                        // console.log(userInfo['googleId']);
-                        var id = userInfo['googleId'];
-                        if (id == googleId) {
-                            console.log('Match');
-                        }
-                        else {
-                            console.log('doesnt exist');
-                        }
-                    });
-                }
-            });
-            // ...
-        }).catch(function (error) {
-            console.log(error);
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-        });
-    };
-    AuthComponent.prototype.singUpFacebook = function () {
-        var provider = new firebase__WEBPACK_IMPORTED_MODULE_3__["auth"].FacebookAuthProvider();
-        firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().signInWithPopup(provider).then(function (result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            console.log(result);
-            // console.log(result['additionalUserInfo']['profile']['id']);
-            var facebookId = result['additionalUserInfo']['profile']['id'];
-            // console.log(this.facebookId);
-            console.log(user);
-            firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users').once('value', function (snap) {
-                var data = snap.val();
-                console.log(data);
-                var keys = Object.keys(data);
-                console.log(keys);
-                for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
-                    var key = keys_2[_i];
-                    firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + key).once('value', function (snapshot) {
-                        var userInfo = snapshot.val();
-                        // console.log(userInfo['facebookId']);
-                        var id = userInfo['facebookId'];
-                        if (id == facebookId) {
-                            console.log('Match');
-                        }
-                        else {
-                            console.log('doesnt exist');
-                        }
-                    });
-                }
-            });
-            // ...
-        }).catch(function (error) {
-            console.log(error);
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-        });
+        // ['facebookId']
+        var gId = localStorage.getItem('gm');
+        var fb = localStorage.getItem('fb');
+        if (gId) {
+            var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.phoneNumber;
+            var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
+            var idStr = gId.toString();
+            var d = {};
+            d['googleId'] = idStr;
+            if (phoneNumber) {
+                d['phone'] = phoneNumber;
+            }
+            console.log(d);
+            firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + userId).set(d);
+        }
     };
     AuthComponent = AuthComponent_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1131,7 +1361,8 @@ var AuthComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
             angularfire2_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
-            _shared_service_service__WEBPACK_IMPORTED_MODULE_5__["ServiceService"]])
+            _shared_service_service__WEBPACK_IMPORTED_MODULE_5__["ServiceService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
     ], AuthComponent);
     return AuthComponent;
     var AuthComponent_1;
@@ -1644,10 +1875,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _shared_dialogs_get_app_get_app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_shared/dialogs/get-app/get-app.component */ "./src/app/_shared/dialogs/get-app/get-app.component.ts");
-/* harmony import */ var _auth_auth_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../auth/auth.component */ "./src/app/auth/auth.component.ts");
+/* harmony import */ var _auth_social_auth_social_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../auth-social/auth-social.component */ "./src/app/auth-social/auth-social.component.ts");
 /* harmony import */ var _shared_service_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_shared/service.service */ "./src/app/_shared/service.service.ts");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
-/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_6__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1657,7 +1886,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -1695,14 +1923,21 @@ var HeaderComponent = /** @class */ (function () {
         this.dialog.open(_shared_dialogs_get_app_get_app_component__WEBPACK_IMPORTED_MODULE_3__["GetAppComponent"]);
     };
     HeaderComponent.prototype.openAuthDialog = function () {
-        this.dialog.open(_auth_auth_component__WEBPACK_IMPORTED_MODULE_4__["AuthComponent"]);
+        this.dialog.open(_auth_social_auth_social_component__WEBPACK_IMPORTED_MODULE_4__["AuthSocialComponent"]);
     };
     HeaderComponent.prototype.logout = function () {
         this.service.transferData(false);
-        firebase__WEBPACK_IMPORTED_MODULE_6__["auth"]().signOut().then(function () {
-            localStorage.setItem('auth', 'false');
-        }).catch(function (error) {
-            console.log(error);
+        localStorage.removeItem('gm');
+        localStorage.removeItem('fb');
+        localStorage.setItem('auth', 'false');
+        // firebase.auth().signOut().then(function() {
+        //   localStorage.setItem('auth', 'false');
+        // }).catch(function(error) {
+        //   console.log(error);
+        // });
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
         });
     };
     HeaderComponent = __decorate([
@@ -2230,6 +2465,14 @@ __webpack_require__.r(__webpack_exports__);
 // TEST
 var environment = {
     production: false,
+    // firebase: {
+    //   apiKey: "AIzaSyAT-2ekYXFCdp1NgyV6zVNTb41Ob6quwi4",
+    //   authDomain: "hls-test-156c5.firebaseapp.com",
+    //   databaseURL: "https://hls-test-156c5.firebaseio.com",
+    //   projectId: "hls-test-156c5",
+    //   storageBucket: "hls-test-156c5.appspot.com",
+    //   messagingSenderId: "572213712202"
+    // }
     firebase: {
         apiKey: "AIzaSyCr3bMGJSv8w12heh5_brUCg7kUCSjFSbs",
         authDomain: "healthy-lifestyle-9ae39.firebaseapp.com",
