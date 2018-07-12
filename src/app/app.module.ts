@@ -36,6 +36,7 @@ import { FaqComponent } from './additional-pages/faq/faq.component';
 import { PrivacyPolicyComponent } from './additional-pages/privacy-policy/privacy-policy.component';
 import { TermsConditionsComponent } from './additional-pages/terms-conditions/terms-conditions.component';
 import { ServiceService } from './_shared/service.service';
+import { AuthSocialComponent } from './auth-social/auth-social.component';
 // import {WindowService} from './_shared/services/window.service';
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ServiceService } from './_shared/service.service';
     AuthComponent,
     FaqComponent,
     PrivacyPolicyComponent,
-    TermsConditionsComponent
+    TermsConditionsComponent,
+    AuthSocialComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,6 @@ import { ServiceService } from './_shared/service.service';
   ],
   providers: [ServiceService],
   bootstrap: [AppComponent],
-  entryComponents: [ServicesDialogComponent, GetAppComponent, AuthComponent]
+  entryComponents: [ServicesDialogComponent, GetAppComponent, AuthComponent, AuthSocialComponent]
 })
 export class AppModule { }

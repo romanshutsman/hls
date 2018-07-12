@@ -1,5 +1,13 @@
 // TEST
 export const environment = {
+  // firebase: {
+  //   apiKey: "AIzaSyAT-2ekYXFCdp1NgyV6zVNTb41Ob6quwi4",
+  //   authDomain: "hls-test-156c5.firebaseapp.com",
+  //   databaseURL: "https://hls-test-156c5.firebaseio.com",
+  //   projectId: "hls-test-156c5",
+  //   storageBucket: "hls-test-156c5.appspot.com",
+  //   messagingSenderId: "572213712202"
+  // },
   firebase: {
     apiKey: "AIzaSyCr3bMGJSv8w12heh5_brUCg7kUCSjFSbs",
     authDomain: "healthy-lifestyle-9ae39.firebaseapp.com",

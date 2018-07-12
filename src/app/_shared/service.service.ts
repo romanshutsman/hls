@@ -11,5 +11,5 @@ subscribeAuth = new Subject<any>();
   transferData(data) {
     console.log(data);
     this.subscribeAuth.next(data);
-  }
+  }  
 }

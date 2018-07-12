@@ -6,7 +6,9 @@ import * as firebase from 'firebase';
 import {FormGroup} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import { ServiceService } from './../_shared/service.service';
+import {AuthSocialComponent} from '../auth-social/auth-social.component';
 declare var grecaptcha: any;
+
 
 
 @Component({
@@ -20,12 +22,21 @@ export class AuthComponent implements OnInit {
   user: any;
   isAuthentificated = false;
   googleId: any;
+  facebookId: any;
+  showBlockNumber = false;
+  msg: string;
+  phoneNumber: number;
+  uid: any;
+  dataUser;
+  facebook;
+  gmail;
 
   constructor(
     private dialogRef: MatDialogRef<ServicesDialogComponent>,
     private afAuth: AngularFireAuth,
     private fb: FormBuilder,
-    private service: ServiceService) {
+    private service: ServiceService,
+    private dialog: MatDialog ) {
   }
 
   ngOnInit() {
@@ -38,21 +49,17 @@ export class AuthComponent implements OnInit {
     this.windowRef.recaptchaVerifier.render();
     this.windowRef.confirmationResult = '';
   }
-
   sendLoginCode() {
     const appVerifier = this.windowRef.recaptchaVerifier;
-
     const num = this.authForm.getRawValue().phoneNumber;
-
     firebase.auth().signInWithPhoneNumber(num, appVerifier)
       .then(result => {
         this.windowRef.confirmationResult = result;
-
+        console.log(result);
       })
       .catch( error => {
         console.log(error)
       } );
-
   }
 
   verifyLoginCode() {
@@ -61,8 +68,12 @@ export class AuthComponent implements OnInit {
       .confirm(verificationCode)
       .then( result => {
         this.user = result.user;
+        console.log(result);
+        this.uid = this.user['uid'];
         this.isAuthentificated = true;
         this.dialogRef.close(AuthComponent);
+      })
+      .then(() => {
         localStorage.setItem('auth', 'true');
         this.service.transferData(this.isAuthentificated);
       })
@@ -72,91 +83,20 @@ export class AuthComponent implements OnInit {
         localStorage.setItem('auth', 'false');
         this.service.transferData(this.isAuthentificated);
       });
-  }
-  singUpGmail() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = result.credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      console.log(result);
-      // console.log(result['additionalUserInfo']['profile']['id']);
-      const googleId = result['additionalUserInfo']['profile']['id'];
-      // console.log(this.googleId);
-      console.log(user);
-      firebase.database().ref('/users').once('value', (snap) => {
-        const data = snap.val();
-        console.log(data);
-        const keys = Object.keys(data);
-        console.log(keys);
-        for (const key of keys) {
-          firebase.database().ref('/users/' + key).once('value', (snapshot) => {
-            const userInfo = snapshot.val();
-            // console.log(userInfo['googleId']);
-            const id = userInfo['googleId'];
-            if (id == googleId) {
-              console.log('Match');
-            } else {
-              console.log('doesnt exist');
-            }
-          });
+      // ['facebookId']
+      const gId = localStorage.getItem('gm');
+      const fb = localStorage.getItem('fb');
+      if (gId) {
+        const phoneNumber = firebase.auth().currentUser.phoneNumber;
+        const userId = firebase.auth().currentUser.uid;
+        const idStr = gId.toString();
+        const d = {};
+        d['googleId'] = idStr;
+        if (phoneNumber) {
+          d['phone'] = phoneNumber;
         }
-      })
-      // ...
-    }).catch(function(error) {
-      console.log(error);
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
-      // ...
-    });
+        console.log(d);
+        firebase.database().ref('/users/' + userId).set(d);
+      }
   }
-  singUpFacebook() {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const token = result.credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      console.log(result);
-      // console.log(result['additionalUserInfo']['profile']['id']);
-      const facebookId = result['additionalUserInfo']['profile']['id'];
-      // console.log(this.facebookId);
-      console.log(user);
-      firebase.database().ref('/users').once('value', (snap) => {
-        const data = snap.val();
-        console.log(data);
-        const keys = Object.keys(data);
-        console.log(keys);
-        for (const key of keys) {
-          firebase.database().ref('/users/' + key).once('value', (snapshot) => {
-            const userInfo = snapshot.val();
-            // console.log(userInfo['facebookId']);
-            const id = userInfo['facebookId'];
-            if (id == facebookId) {
-              console.log('Match');
-            } else {
-              console.log('doesnt exist');
-            }
-          });
-        }
-      })
-      // ...
-    }).catch(function(error) {
-      console.log(error);
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
-      // ...
-    });
   }
-}

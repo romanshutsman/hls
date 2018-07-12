@@ -4,10 +4,11 @@ import {MatDialog} from '@angular/material';
 import {ServicesDialogComponent} from '../_shared/dialogs/services-dialog/services-dialog.component';
 import {GetAppComponent} from '../_shared/dialogs/get-app/get-app.component';
 import {AuthComponent} from '../auth/auth.component';
+import {AuthSocialComponent} from '../auth-social/auth-social.component';
 import { Subscription } from 'rxjs/Subscription';
 import { ServiceService } from './../_shared/service.service';
 import * as firebase from 'firebase';
-
+declare var gapi: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,6 +17,8 @@ import * as firebase from 'firebase';
 export class HeaderComponent implements OnInit {
   responsiveMenu: boolean = false;
   auth = false;
+  public auth2: any;
+
   constructor(public router: Router, public dialog: MatDialog, private service: ServiceService) {
   }
 
@@ -42,14 +45,21 @@ export class HeaderComponent implements OnInit {
   }
 
   openAuthDialog() {
-    this.dialog.open(AuthComponent);
+    this.dialog.open(AuthSocialComponent);
   }
   logout() {
     this.service.transferData(false);
-    firebase.auth().signOut().then(function() {
-      localStorage.setItem('auth', 'false');
-    }).catch(function(error) {
-      console.log(error);
+    localStorage.removeItem('gm');
+    localStorage.removeItem('fb');
+    localStorage.setItem('auth', 'false');
+    // firebase.auth().signOut().then(function() {
+    //   localStorage.setItem('auth', 'false');
+    // }).catch(function(error) {
+    //   console.log(error);
+    // });
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
     });
   }
 }
