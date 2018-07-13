@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ServiceService } from './../_shared/service.service';
 import * as firebase from 'firebase';
 declare var gapi: any;
+declare var FB: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,11 +19,17 @@ export class HeaderComponent implements OnInit {
   responsiveMenu: boolean = false;
   auth = false;
   public auth2: any;
-
   constructor(public router: Router, public dialog: MatDialog, private service: ServiceService) {
   }
 
   ngOnInit() {
+    FB.init({
+      appId      : '235103837267101',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v3.0'
+    });
+    FB.AppEvents.logPageView();
     const dataStore = localStorage.getItem('auth');
     this.auth = JSON.parse(dataStore);
     this.service.subscribeAuth.subscribe(data => {
@@ -52,11 +59,16 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('gm');
     localStorage.removeItem('fb');
     localStorage.setItem('auth', 'false');
-    // firebase.auth().signOut().then(function() {
-    //   localStorage.setItem('auth', 'false');
-    // }).catch(function(error) {
-    //   console.log(error);
-    // });
+    firebase.auth().signOut().then(function() {
+      localStorage.setItem('auth', 'false');
+    }).catch(function(error) {
+      console.log(error);
+    });
+    FB.logout(function(response) {
+      console.log(response);
+      const status = FB.getLoginStatus();
+      console.log(status);
+    });
     const auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');

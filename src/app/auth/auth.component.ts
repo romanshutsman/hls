@@ -10,7 +10,6 @@ import {AuthSocialComponent} from '../auth-social/auth-social.component';
 declare var grecaptcha: any;
 
 
-
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -49,6 +48,7 @@ export class AuthComponent implements OnInit {
     this.windowRef.recaptchaVerifier.render();
     this.windowRef.confirmationResult = '';
   }
+  
   sendLoginCode() {
     const appVerifier = this.windowRef.recaptchaVerifier;
     const num = this.authForm.getRawValue().phoneNumber;
@@ -84,21 +84,37 @@ export class AuthComponent implements OnInit {
         this.service.transferData(this.isAuthentificated);
       });
       // ['facebookId']
-      const gId = localStorage.getItem('gm');
-      const fb = localStorage.getItem('fb');
-      if (gId) {
-        const phoneNumber = firebase.auth().currentUser.phoneNumber;
-        const userId = firebase.auth().currentUser.uid;
-        console.log(this.uid);
-        console.log(userId);
-        const idStr = gId.toString();
-        const d = {};
-        d['googleId'] = idStr;
-        if (phoneNumber) {
-          d['phone'] = phoneNumber;
+      setTimeout(() => {
+        const gId = localStorage.getItem('gm');
+        const fb = localStorage.getItem('fb');
+        if (gId) {
+          const phoneNumber = firebase.auth().currentUser.phoneNumber;
+          const userId = firebase.auth().currentUser.uid;
+          const gmailString = gId.toString();
+          const fbString = gId.toString();
+          const d = {};
+          d['googleId'] = gmailString;
+          if (phoneNumber) {
+            d['phone'] = phoneNumber;
+          }
+          console.log(d);
+          console.log(firebase.auth().currentUser);
+          firebase.database().ref('/users/' + userId).update(d);
         }
-        console.log(d);
-        firebase.database().ref('/users/' + userId).set(d);
-      }
+        if (fb) {
+          const phoneNumber = firebase.auth().currentUser.providerData[0].phoneNumber;
+          const userId = firebase.auth().currentUser.uid;
+          const gmailString = gId.toString();
+          const fbString = fb.toString();
+          const d = {};
+          d['facebookId'] = fbString;
+          if (phoneNumber) {
+            d['phone'] = phoneNumber;
+          }
+          console.log(d);
+          console.log(firebase.auth().currentUser);
+          firebase.database().ref('/users/' + userId).update(d);
+        }
+      }, 5000);
   }
   }

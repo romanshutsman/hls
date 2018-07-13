@@ -14,9 +14,6 @@ import { Subscription } from 'rxjs/Subscription';
 declare var grecaptcha: any;
 declare var FB: any;
 declare var gapi: any;
-// import { SocialUser } from 'angularx-social-login';
-// import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-// import { AuthService } from 'angularx-social-login';
 
 
 @Component({
@@ -35,13 +32,62 @@ export class AuthSocialComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    // FB.init({
+    //   appId      : '235103837267101',
+    //   cookie     : true,
+    //   xfbml      : true,
+    //   version    : 'v3.0'
+    // });
     FB.init({
       appId      : '235103837267101',
       cookie     : true,
       xfbml      : true,
       version    : 'v3.0'
     });
+    FB.AppEvents.logPageView();
   }
+  loginFB() {
+    this.dialog.open(AuthComponent);
+    this.dialogRef.close(AuthSocialComponent);
+    FB.login(function(response) {
+      console.log(response);
+        if (response.authResponse) {
+            FB.api('/me', function(resp) {
+              console.log(response);
+          console.log('Good to see you, ' + resp.name + '.');
+          console.log("Your UID is " + resp.id);
+          const fbId = resp.id;
+          if (fbId) {
+            firebase.database().ref('/users').once('value', (snap) => {
+              const data = snap.val();
+              const keys = Object.keys(data);
+              for (const key of keys) {
+                firebase.database().ref('/users/' + key).once('value', (snapshot) => {
+                  const userInfo = snapshot.val();
+                  const id = userInfo['facebookId'];
+                  if (id) {
+                    console.log(id);
+                    if (id == fbId ) {
+                      console.log('Match');
+                      this.closeDiaslog();
+                      this.service.transferData(true);
+                    } else {
+                      console.log('doesnt exist');
+                      localStorage.setItem('fb', fbId);
+                    }
+                  }
+                });
+              }
+            });
+          }
+      });
+            console.log(response.authResponse);
+        } else {
+            // cancelled
+            alert('User cancelled login or did not fully authorize.');
+        }
+    });
+}
   googleInit() {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
@@ -173,6 +219,7 @@ export class AuthSocialComponent implements OnInit, AfterViewInit {
   }
   onSignIn() {
     const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+
     console.log('Token id: ' + googleUser.getAuthResponse().id_token);
     this.dialog.open(AuthComponent);
     const profile = googleUser.getBasicProfile();
@@ -213,25 +260,7 @@ export class AuthSocialComponent implements OnInit, AfterViewInit {
       console.log('true');
     }
   }
-  public attachSignin(element) {
-    this.auth2.attachClickHandler(element, {},
-      (loggedInUser) => {  
-      console.log( loggedInUser);
-
-      }, function (error) {
-        // alert(JSON.stringify(error, undefined, 2));
-      });
-
- }
   ngAfterViewInit(){
-    // this.googleInit();
-    gapi.load('auth2',  () => {
-      this.auth2 = gapi.auth2.init({
-        client_id: '15808880644-eh0h91pl7rpq66fn9qfk55f3i0mc7gup.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        scope: 'profile email'
-      });
-      this.attachSignin(document.getElementById('glogin'));
-    });
+    this.googleInit();
 }
 }
