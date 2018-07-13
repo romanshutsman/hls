@@ -1389,10 +1389,11 @@ var AuthComponent = /** @class */ (function () {
                 var fbString = fb.toString();
                 d['facebookId'] = fbString;
             }
+            console.log(d);
             if (d != {}) {
                 firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + _this.uid).set(d);
             }
-        }, 5000);
+        }, 10000);
     };
     AuthComponent = AuthComponent_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
