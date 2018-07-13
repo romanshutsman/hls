@@ -1391,7 +1391,7 @@ var AuthComponent = /** @class */ (function () {
             }
             console.log(d);
             if (d != {}) {
-                firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + _this.uid).set(d);
+                firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + _this.uid).update(d);
             }
         }, 10000);
     };
