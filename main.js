@@ -946,7 +946,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sign_up\">\n  <button class=\"g-signin2 btn\" data-onsuccess=\"onSignIn\" (click)=\"onSignIn()\">Sign up via Google</button>\n  <!-- <button class=\"btn\" (click)=\"singUpGmail()\">Sign up via Google</button> -->\n  <button class=\"btn\" (click)=\"singUpFacebook()\">Sign up via Facebook</button>\n  <button class=\"btn\" (click)=\"singUpNumber()\" >Sign up via phone Number</button>\n</div>\n<p class=\"error\">{{msg}}</p>"
+module.exports = "<div class=\"sign_up\">\n  <button class=\"g-signin2 btn\" data-onsuccess=\"onSignIn\" (click)=\"onSignIn()\">Sign up via Google</button>\n  <button class=\"btn\" (click)=\"loginFB()\">Sign up via Facebook</button>\n  <button class=\"btn\" (click)=\"singUpNumber()\" >Sign up via phone Number</button>\n</div>\n<p class=\"error\">{{msg}}</p>"
 
 /***/ }),
 
@@ -991,9 +991,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-// import { SocialUser } from 'angularx-social-login';
-// import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-// import { AuthService } from 'angularx-social-login';
 var AuthSocialComponent = /** @class */ (function () {
     function AuthSocialComponent(dialogRef, service, dialog) {
         this.dialogRef = dialogRef;
@@ -1002,11 +999,64 @@ var AuthSocialComponent = /** @class */ (function () {
     }
     AuthSocialComponent_1 = AuthSocialComponent;
     AuthSocialComponent.prototype.ngOnInit = function () {
+        // FB.init({
+        //   appId      : '235103837267101',
+        //   cookie     : true,
+        //   xfbml      : true,
+        //   version    : 'v3.0'
+        // });
         FB.init({
             appId: '235103837267101',
             cookie: true,
             xfbml: true,
             version: 'v3.0'
+        });
+        FB.AppEvents.logPageView();
+    };
+    AuthSocialComponent.prototype.loginFB = function () {
+        this.dialog.open(_auth_auth_component__WEBPACK_IMPORTED_MODULE_4__["AuthComponent"]);
+        this.dialogRef.close(AuthSocialComponent_1);
+        FB.login(function (response) {
+            console.log(response);
+            if (response.authResponse) {
+                FB.api('/me', function (resp) {
+                    var _this = this;
+                    console.log(response);
+                    console.log('Good to see you, ' + resp.name + '.');
+                    console.log("Your UID is " + resp.id);
+                    var fbId = resp.id;
+                    if (fbId) {
+                        firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users').once('value', function (snap) {
+                            var data = snap.val();
+                            var keys = Object.keys(data);
+                            for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+                                var key = keys_1[_i];
+                                firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users/' + key).once('value', function (snapshot) {
+                                    var userInfo = snapshot.val();
+                                    var id = userInfo['facebookId'];
+                                    if (id) {
+                                        console.log(id);
+                                        if (id == fbId) {
+                                            console.log('Match');
+                                            _this.closeDiaslog();
+                                            _this.service.transferData(true);
+                                        }
+                                        else {
+                                            console.log('doesnt exist');
+                                            localStorage.setItem('fb', fbId);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                console.log(response.authResponse);
+            }
+            else {
+                // cancelled
+                alert('User cancelled login or did not fully authorize.');
+            }
         });
     };
     AuthSocialComponent.prototype.googleInit = function () {
@@ -1052,8 +1102,8 @@ var AuthSocialComponent = /** @class */ (function () {
         firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users').once('value', function (snap) {
             var data = snap.val();
             var keys = Object.keys(data);
-            for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
-                var key = keys_1[_i];
+            for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
+                var key = keys_2[_i];
                 firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users/' + key).once('value', function (snapshot) {
                     var userInfo = snapshot.val();
                     var id = userInfo['googleId'];
@@ -1123,8 +1173,8 @@ var AuthSocialComponent = /** @class */ (function () {
         firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users').once('value', function (snap) {
             var data = snap.val();
             var keys = Object.keys(data);
-            for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
-                var key = keys_2[_i];
+            for (var _i = 0, keys_3 = keys; _i < keys_3.length; _i++) {
+                var key = keys_3[_i];
                 firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users/' + key).once('value', function (snapshot) {
                     var userInfo = snapshot.val();
                     var id = userInfo['facebookId'];
@@ -1163,8 +1213,8 @@ var AuthSocialComponent = /** @class */ (function () {
             firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users').once('value', function (snap) {
                 var data = snap.val();
                 var keys = Object.keys(data);
-                for (var _i = 0, keys_3 = keys; _i < keys_3.length; _i++) {
-                    var key = keys_3[_i];
+                for (var _i = 0, keys_4 = keys; _i < keys_4.length; _i++) {
+                    var key = keys_4[_i];
                     firebase__WEBPACK_IMPORTED_MODULE_2__["database"]().ref('/users/' + key).once('value', function (snapshot) {
                         var userInfo = snapshot.val();
                         var id = userInfo['googleId'];
@@ -1189,24 +1239,8 @@ var AuthSocialComponent = /** @class */ (function () {
             console.log('true');
         }
     };
-    AuthSocialComponent.prototype.attachSignin = function (element) {
-        this.auth2.attachClickHandler(element, {}, function (loggedInUser) {
-            console.log(loggedInUser);
-        }, function (error) {
-            // alert(JSON.stringify(error, undefined, 2));
-        });
-    };
     AuthSocialComponent.prototype.ngAfterViewInit = function () {
-        var _this = this;
-        // this.googleInit();
-        gapi.load('auth2', function () {
-            _this.auth2 = gapi.auth2.init({
-                client_id: '15808880644-eh0h91pl7rpq66fn9qfk55f3i0mc7gup.apps.googleusercontent.com',
-                cookiepolicy: 'single_host_origin',
-                scope: 'profile email'
-            });
-            _this.attachSignin(document.getElementById('glogin'));
-        });
+        this.googleInit();
     };
     AuthSocialComponent = AuthSocialComponent_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1337,20 +1371,38 @@ var AuthComponent = /** @class */ (function () {
             _this.service.transferData(_this.isAuthentificated);
         });
         // ['facebookId']
-        var gId = localStorage.getItem('gm');
-        var fb = localStorage.getItem('fb');
-        if (gId) {
-            var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.phoneNumber;
-            var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
-            var idStr = gId.toString();
-            var d = {};
-            d['googleId'] = idStr;
-            if (phoneNumber) {
-                d['phone'] = phoneNumber;
+        setTimeout(function () {
+            var gId = localStorage.getItem('gm');
+            var fb = localStorage.getItem('fb');
+            if (gId) {
+                var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.phoneNumber;
+                var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
+                var gmailString = gId.toString();
+                var fbString = gId.toString();
+                var d = {};
+                d['googleId'] = gmailString;
+                if (phoneNumber) {
+                    d['phone'] = phoneNumber;
+                }
+                console.log(d);
+                console.log(firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser);
+                firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + userId).update(d);
             }
-            console.log(d);
-            firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + userId).set(d);
-        }
+            if (fb) {
+                var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.providerData[0].phoneNumber;
+                var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
+                var gmailString = gId.toString();
+                var fbString = fb.toString();
+                var d = {};
+                d['facebookId'] = fbString;
+                if (phoneNumber) {
+                    d['phone'] = phoneNumber;
+                }
+                console.log(d);
+                console.log(firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser);
+                firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + userId).update(d);
+            }
+        }, 5000);
     };
     AuthComponent = AuthComponent_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1877,6 +1929,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_dialogs_get_app_get_app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_shared/dialogs/get-app/get-app.component */ "./src/app/_shared/dialogs/get-app/get-app.component.ts");
 /* harmony import */ var _auth_social_auth_social_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../auth-social/auth-social.component */ "./src/app/auth-social/auth-social.component.ts");
 /* harmony import */ var _shared_service_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../_shared/service.service */ "./src/app/_shared/service.service.ts");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_6__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1886,6 +1940,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1902,6 +1957,13 @@ var HeaderComponent = /** @class */ (function () {
     }
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
+        FB.init({
+            appId: '235103837267101',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+        FB.AppEvents.logPageView();
         var dataStore = localStorage.getItem('auth');
         this.auth = JSON.parse(dataStore);
         this.service.subscribeAuth.subscribe(function (data) {
@@ -1930,11 +1992,16 @@ var HeaderComponent = /** @class */ (function () {
         localStorage.removeItem('gm');
         localStorage.removeItem('fb');
         localStorage.setItem('auth', 'false');
-        // firebase.auth().signOut().then(function() {
-        //   localStorage.setItem('auth', 'false');
-        // }).catch(function(error) {
-        //   console.log(error);
-        // });
+        firebase__WEBPACK_IMPORTED_MODULE_6__["auth"]().signOut().then(function () {
+            localStorage.setItem('auth', 'false');
+        }).catch(function (error) {
+            console.log(error);
+        });
+        FB.logout(function (response) {
+            console.log(response);
+            var status = FB.getLoginStatus();
+            console.log(status);
+        });
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
