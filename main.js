@@ -1374,33 +1374,23 @@ var AuthComponent = /** @class */ (function () {
         setTimeout(function () {
             var gId = localStorage.getItem('gm');
             var fb = localStorage.getItem('fb');
+            var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.phoneNumber;
+            var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
+            var gmailString = gId.toString();
+            var fbString = fb.toString();
+            console.log(firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser);
+            var d = {};
+            if (phoneNumber) {
+                d['phone'] = phoneNumber;
+            }
             if (gId) {
-                var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.phoneNumber;
-                var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
-                var gmailString = gId.toString();
-                var fbString = gId.toString();
-                var d = {};
                 d['googleId'] = gmailString;
-                if (phoneNumber) {
-                    d['phone'] = phoneNumber;
-                }
-                console.log(d);
-                console.log(firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser);
-                firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + userId).update(d);
             }
             if (fb) {
-                var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.providerData[0].phoneNumber;
-                var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
-                var gmailString = gId.toString();
-                var fbString = fb.toString();
-                var d = {};
                 d['facebookId'] = fbString;
-                if (phoneNumber) {
-                    d['phone'] = phoneNumber;
-                }
-                console.log(d);
-                console.log(firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser);
-                firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + userId).update(d);
+            }
+            if (d != {}) {
+                firebase__WEBPACK_IMPORTED_MODULE_3__["database"]().ref('/users/' + _this.uid).set(d);
             }
         }, 5000);
     };
