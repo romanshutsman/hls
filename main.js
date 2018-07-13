@@ -1376,17 +1376,17 @@ var AuthComponent = /** @class */ (function () {
             var fb = localStorage.getItem('fb');
             var phoneNumber = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.phoneNumber;
             var userId = firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser.uid;
-            var gmailString = gId.toString();
-            var fbString = fb.toString();
             console.log(firebase__WEBPACK_IMPORTED_MODULE_3__["auth"]().currentUser);
             var d = {};
             if (phoneNumber) {
                 d['phone'] = phoneNumber;
             }
             if (gId) {
+                var gmailString = gId.toString();
                 d['googleId'] = gmailString;
             }
             if (fb) {
+                var fbString = fb.toString();
                 d['facebookId'] = fbString;
             }
             if (d != {}) {
